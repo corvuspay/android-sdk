@@ -65,7 +65,7 @@ The Checkout object (`com.corvuspay.sdk.models.Checkout`) is used to define tran
 - **version** (`com.corvuspay.sdk.enums.CorvusPayVersion`)
 	- Enum value defining the version of CorvusPay to be used for checkout
 - **signature** (`String`)
-	- Unique signature assigned by Corvus
+	- Requests must be signed/verified using HMAC-SHA256 where the key is a value known to the CorvusPay and the merchant. More details available in official integration manual.
 - **requireComplete** (`Boolean`)
 
 #### Optional:
