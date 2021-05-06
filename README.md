@@ -40,10 +40,15 @@ To use the SDK, the checkout process needs to be initialized and all required pa
 ## Checkout
 
 ### Checkout initialization
-To start a checkout process, the SDK's `checkout()` method should be called, which requires you to provide the `Activity` from which the method is called, and a `Checkout` object which holds information about the transaction:
+To initiate a checkout process, the SDK's `checkout()` method should be called, which requires you to provide the `Activity` from which the method is called, and a `Checkout` object which holds information about the transaction.
 ```kotlin
 CorvusPay.checkout(activity: Activity, checkout: Checkout)
 ```
+When the Checkout object is created, it needs to be signed, before being used as an argument in the above-mentioned function. 
+
+Signing is done by retrieving the string interpretation of the Checkout object using its `generateStringForSignature(): String` function. The result of the function is used as the content that will be hashed and added into the Checkout object by using its `copy(signature = ... )` function. 
+
+In order to create the hash, the SHA256 algorithm is used, along with the secret key known to the merchant and Corvus.
 
 &nbsp;
 ### Checkout object
@@ -62,8 +67,6 @@ The Checkout object (`com.corvuspay.sdk.models.Checkout`) is used to define tran
 	- Enum value defining the currency which will be used during checkout
 - **amount** (`Double`)
 	- Total cost of the purchase
-- **version** (`com.corvuspay.sdk.enums.CorvusPayVersion`)
-	- Enum value defining the version of CorvusPay to be used for checkout
 - **signature** (`String`)
 	- Requests must be signed/verified using HMAC-SHA256 where the key is a value known to the CorvusPay and the merchant. More details available in official integration manual.
 - **requireComplete** (`Boolean`)
