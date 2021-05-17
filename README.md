@@ -8,7 +8,8 @@
 - [Usage](#usage)
 	- [Intro](#intro)
 	- [Checkout](#checkout)
-		- [Checkout initialization](#checkout-initialization)
+		- [Initialization](#initialization)
+ 		- [Result](#result)
 		- [Checkout object](#checkout-object)
 	- [Installments](#installments)
 		- [Installments Map](#installments-map)
@@ -39,7 +40,7 @@ To use the SDK, the checkout process needs to be initialized and all required pa
 &nbsp;
 ## Checkout
 
-### Checkout initialization
+### Initialization
 To initiate a checkout process, the SDK's `checkout()` method should be called, which requires you to provide the `Activity` from which the method is called, and a `Checkout` object which holds information about the transaction.
 ```kotlin
 CorvusPay.checkout(activity: Activity, checkout: Checkout)
@@ -49,6 +50,31 @@ When the Checkout object is created, it needs to be signed, before being used as
 Signing is done by retrieving the string interpretation of the Checkout object using its `generateStringForSignature(): String` function. The result of the function is used as the content that will be hashed and added into the Checkout object by using its `copy(signature = ... )` function. 
 
 In order to create the hash, the SHA256 algorithm is used, along with the secret key known to the merchant and Corvus.
+
+&nbsp;
+### Result
+The `checkout()` function will start a new activity using the `startActivityForResult()` function, with the following request code: `com.corvuspay.sdk.constants.CheckoutCodes.REQUEST_CHECKOUT`.  If the end-user has the CorvusPay application installed, it will be used to complete the checkout process. If not, the process will continue within a WebView.
+
+Once the checkout process is finished, a response will be forwarded to the application which started it. In order to catch the result, the `onActivityResult()` function needs to be overridden. The possible result codes, contained in the `com.corvuspay.sdk.constants.CheckoutCodes` file, can be: 
+- `RESULT_CODE_CHECKOUT_SUCCESS`
+- `RESULT_CODE_CHECKOUT_FAILURE`
+	- Returned if the checkout process was canceled because of an error
+- `RESULT_CODE_CHECKOUT_ABORTED`
+	- Returned if the end-user canceled the checkout process manually
+
+#### Example
+```kotlin
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+	if (requestCode == CheckoutCodes.REQUEST_CHECKOUT) {
+		when (resultCode) {
+			CheckoutCodes.RESULT_CODE_CHECKOUT_SUCCESS -> ...
+			CheckoutCodes.RESULT_CODE_CHECKOUT_FAILURE -> ...
+			CheckoutCodes.RESULT_CODE_CHECKOUT_ABORTED -> ...
+		}
+	}
+	super.onActivityResult(requestCode, resultCode, data)
+}
+```
 
 &nbsp;
 ### Checkout object
