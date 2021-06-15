@@ -22,8 +22,8 @@
  - [FAQ](#faq)
    
 # Installation
-Start using the **Corvus Pay SDK** in your project by adding the following dependency in your application's build.gradle file:
-`implementation 'com.corvuspay:sdk:{version}'`
+Start using the **Corvus Pay SDK** in your project by adding it to your project dependencies, and adding the following dependency in your application's build.gradle file:
+`implementation files('{path to sdk .aar file}')`
 
 &nbsp;
 # Usage
@@ -41,9 +41,9 @@ To use the SDK, the checkout process needs to be initialized and all required pa
 ## Checkout
 
 ### Initialization
-To initiate a checkout process, the SDK's `checkout()` method should be called, which requires you to provide the `Activity` from which the method is called, and a `Checkout` object which holds information about the transaction.
+To initiate a checkout process, the SDK's `checkout()` method should be called, which requires you to provide the `Activity` from which the method is called,`Checkout` object which holds information about the transaction and a 'environmentSdk' flag to choose on which environment(test or production) the SDK will work.
 ```kotlin
-CorvusPay.checkout(activity: Activity, checkout: Checkout)
+CorvusPay.checkout(activity: Activity, checkout: Checkout, environmentSdk: String)
 ```
 When the Checkout object is created, it needs to be signed, before being used as an argument in the above-mentioned function. 
 
