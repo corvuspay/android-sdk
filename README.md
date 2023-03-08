@@ -114,6 +114,10 @@ The Checkout object (`com.corvuspay.sdk.models.Checkout`) is used to define tran
 	- InstallmentParams object
 - **installmentsMap** (`com.corvuspay.sdk.models.InstallmentsMap`)
 	- InstallmentsMap object
+- **useCardProfiles** (`Boolean`)
+	- should be set to `true` if you are using card storage option. Otherwise should be set to `false` or not sent.
+- **userCardProfilesId** (`String`)
+	- if you are using card storage option, user card profile ID must be sent in Checkout object.
 
 &nbsp;
 ## Installments
