@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_cart_product_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/hoodie_with_pocket_768x768"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_cart_title"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_cart_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@id/iv_cart_product_image"
+        app:layout_constraintTop_toTopOf="@id/iv_cart_product_image"
+        tools:text="Hoodie with Pocket" />
+
+    <TextView
+        android:id="@+id/tv_cart_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/tv_cart_title"
+        app:layout_constraintStart_toStartOf="@id/tv_cart_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_cart_title"
+        tools:text="78.00 EUR" />
+
+    <EditText
+        android:id="@+id/et_cart_quantity"
+        android:layout_width="46dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_text_border"
+        android:inputType="numberSigned"
+        android:maxLength="2"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_cart_product_image"
+        app:layout_constraintStart_toStartOf="@id/tv_cart_price"
+        app:layout_constraintTop_toBottomOf="@id/tv_cart_price"
+        tools:text="99" />
+
+    <ImageButton
+        android:id="@+id/btn_cart_quantity_decrease"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/bg_button_border_blue"
+        android:src="@drawable/round_remove_black_36"
+        android:tint="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="@id/et_cart_quantity"
+        app:layout_constraintStart_toEndOf="@id/et_cart_quantity"
+        app:layout_constraintTop_toTopOf="@id/et_cart_quantity" />
+
+    <ImageButton
+        android:id="@+id/btn_cart_quantity_increase"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/bg_button_border_blue"
+        android:src="@drawable/round_add_black_36"
+        android:tint="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="@id/et_cart_quantity"
+        app:layout_constraintStart_toEndOf="@id/btn_cart_quantity_decrease"
+        app:layout_constraintTop_toTopOf="@id/et_cart_quantity" />
+
+    <ImageButton
+        android:id="@+id/btn_cart_remove_item"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_button_filled_red"
+        android:src="@drawable/round_delete_forever_white_24"
+        app:layout_constraintBottom_toBottomOf="@id/iv_cart_product_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_cart_product_image" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

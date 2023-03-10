@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/installments_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_params_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:paddingTop="24dp"
+            android:text="@string/tv_installments_title"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:background="@drawable/bg_border_gray">
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_storeId">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_storeId_title"
+                    android:text="storeId" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_storeId_value"
+                    android:text="0" />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_orderId">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_orderId_title"
+                    android:text="orderId" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_orderId_value"
+                    android:text="0" />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_language">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_language_title"
+                    android:text="language" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_language_value"
+                    android:text="hr" />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_currency">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_currency_title"
+                    android:text="currency" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_currency_value"
+                    android:text="EUR" />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_amount">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_amount_title"
+                    android:text="amount" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_amount_value"
+                    android:text="0" />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_discountAmount">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_discountAmount_title"
+                    android:text="discount_amount" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_discountAmount_value"
+                    android:text="0" />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_requireComplete">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_requireComplete_title"
+                    android:text="requireComplete" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_requireComplete_value"
+                    android:text="false" />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_cardholder">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_cardholder_title"
+                    android:text="cardholder" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_cardholder_value"
+                    android:text="Object->String" />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_bestBefore">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_bestBefore_title"
+                    android:text="bestBefore" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_bestBefore_value"
+                    android:text="600" />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_installmentParams">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_installmentParams_title"
+                    android:text="installmentParams" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_installmentParams_value"
+                    android:text="Object->String" />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_installmentsMap">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_installmentsMap_title"
+                    android:text="installmentsMap" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_installmentsMap_value"
+                    android:text="Object->String" />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:id="@+id/tv_param_signature"
+                android:background="@android:color/white">
+                <TextView
+                    style="@style/TableColumn1"
+                    android:id="@+id/tv_param_signature_title"
+                    android:text="signature" />
+
+                <TextView
+                    style="@style/TableColumn2"
+                    android:id="@+id/tv_param_signature_value"
+                    android:text="dmnfckje5tkje4nl5ignuewlhi5ungjlegbdftbt" />
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/btn_installments_submit"
+            style="@style/CustomButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/btn_params_list" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CorvusPay Demo Shop</string>
+    <string name="btn_params_list">Continue with payment</string>
+    <string name="btn_params_menu_simple">No installments</string>
+    <string name="btn_params_menu_fixed">Fixed installments</string>
+    <string name="btn_params_menu_payment">Installments</string>
+    <string name="btn_params_menu_dynamic">Dynamic installments</string>
+    <string name="btn_params_menu_map">Installment map</string>
+    <string name="btn_checkout">Proceed to checkout</string>
+    <string name="tv_installments_title">Payment parameters</string>
+</resources>

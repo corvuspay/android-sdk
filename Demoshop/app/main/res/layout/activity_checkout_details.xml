@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@android:color/white"
+    tools:context=".activities.CheckoutDetailsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/installments_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_params_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:gravity="center"
+                android:paddingTop="24dp"
+                android:text="@string/tv_installments_title"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/bg_border_gray"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp">
+
+                <TableRow
+                    android:id="@+id/tv_param_storeId"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_param_storeId_title"
+                        style="@style/TableColumn1"
+                        android:text="storeId" />
+
+                    <TextView
+                        android:id="@+id/tv_param_storeId_value"
+                        style="@style/TableColumn2"
+                        android:text="0" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_param_orderId"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_param_orderId_title"
+                        style="@style/TableColumn1"
+                        android:text="orderId" />
+
+                    <TextView
+                        android:id="@+id/tv_param_orderId_value"
+                        style="@style/TableColumn2"
+                        android:text="0" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_param_language"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_param_language_title"
+                        style="@style/TableColumn1"
+                        android:text="language" />
+
+                    <TextView
+                        android:id="@+id/tv_param_language_value"
+                        style="@style/TableColumn2"
+                        android:text="hr" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_param_currency"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_param_currency_title"
+                        style="@style/TableColumn1"
+                        android:text="currency" />
+
+                    <TextView
+                        android:id="@+id/tv_param_currency_value"
+                        style="@style/TableColumn2"
+                        android:text="EUR" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_param_amount"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_param_amount_title"
+                        style="@style/TableColumn1"
+                        android:text="amount" />
+
+                    <TextView
+                        android:id="@+id/tv_param_amount_value"
+                        style="@style/TableColumn2"
+                        android:text="0" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_param_discountAmount"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_param_discountAmount_title"
+                        style="@style/TableColumn1"
+                        android:text="discount_amount" />
+
+                    <TextView
+                        android:id="@+id/tv_param_discountAmount_value"
+                        style="@style/TableColumn2"
+                        android:text="0" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_param_requireComplete"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_param_requireComplete_title"
+                        style="@style/TableColumn1"
+                        android:text="requireComplete" />
+
+                    <TextView
+                        android:id="@+id/tv_param_requireComplete_value"
+                        style="@style/TableColumn2"
+                        android:text="false" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_param_cardholder"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_param_cardholder_title"
+                        style="@style/TableColumn1"
+                        android:text="cardholder" />
+
+                    <TextView
+                        android:id="@+id/tv_param_cardholder_value"
+                        style="@style/TableColumn2"
+                        android:text="Object->String" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_param_bestBefore"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_param_bestBefore_title"
+                        style="@style/TableColumn1"
+                        android:text="bestBefore" />
+
+                    <TextView
+                        android:id="@+id/tv_param_bestBefore_value"
+                        style="@style/TableColumn2"
+                        android:text="600" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_param_installmentParams"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_param_installmentParams_title"
+                        style="@style/TableColumn1"
+                        android:text="installmentParams" />
+
+                    <TextView
+                        android:id="@+id/tv_param_installmentParams_value"
+                        style="@style/TableColumn2"
+                        android:text="Object->String" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_param_installmentsMap"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_param_installmentsMap_title"
+                        style="@style/TableColumn1"
+                        android:text="installmentsMap" />
+
+                    <TextView
+                        android:id="@+id/tv_param_installmentsMap_value"
+                        style="@style/TableColumn2"
+                        android:text="Object->String" />
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/tv_useCardProfiles"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_useCardProfiles_title"
+                        style="@style/TableColumn1"
+                        android:text="use_card_profiles" />
+
+                    <TextView
+                        android:id="@+id/tv_useCardProfiles_value"
+                        style="@style/TableColumn2"
+                        tools:text="yes" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_userCardProfilesId"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_userCardProfilesId_title"
+                        style="@style/TableColumn1"
+                        android:text="userCardProfilesId" />
+
+                    <TextView
+                        android:id="@+id/tv_userCardProfilesId_value"
+                        style="@style/TableColumn2"
+                        tools:text="Object->String" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_param_signature"
+                    style="@style/TableRow"
+                    android:background="@color/colorWhite">
+
+                    <TextView
+                        android:id="@+id/tv_param_signature_title"
+                        style="@style/TableColumn1"
+                        android:text="signature" />
+
+                    <TextView
+                        android:id="@+id/tv_param_signature_value"
+                        style="@style/TableColumn2"
+                        android:text="dmnfckje5tkje4nl5ignuewlhi5ungjlegbdftbt" />
+                </TableRow>
+
+
+            </TableLayout>
+
+            <Button
+                android:id="@+id/btn_installments_submit"
+                style="@style/CustomButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/btn_params_list" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/layout_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/lightTransparent"
+            android:clickable="true"
+            android:descendantFocusability="blocksDescendants"
+            android:elevation="10dp"
+            android:focusable="true"
+            android:visibility="gone"
+            android:focusableInTouchMode="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@anim/rotate_progress_bar"
+                android:interpolator="@android:interpolator/overshoot" />
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
