@@ -83,7 +83,8 @@ The Checkout object (`com.corvuspay.sdk.models.Checkout`) is used to define tran
 #### Required:
 - **storeId** (`Int`)
 	- Store ID provided by Corvus
-- **orderId** (`String`)
+- **orderId
+- ** (`String`)
 	- Unique order identifier
 - **language** (`com.corvuspay.sdk.enums.Language`)
 	- Enum value defining the language preference for the checkout process
@@ -93,15 +94,19 @@ The Checkout object (`com.corvuspay.sdk.models.Checkout`) is used to define tran
 	- Enum value defining the currency which will be used during checkout
 - **amount** (`Double`)
 	- Total cost of the purchase
+- **isSdk** (`Boolean`)
+	- Must be set to `true`
+- **version** (`String`)
+	- Must be set to "1.3"
+- **requireComplete** (`Boolean`)
+    - Must be set to `true` if transaction is preauthorization, otherwise to `false`
 - **signature** (`String`)
 	- Requests must be signed/verified using HMAC-SHA256 where the key is a value known to the CorvusPay and the merchant. More details available in official integration manual.
-- **requireComplete** (`Boolean`)
+
 
 #### Optional:
 - **discountAmount** (`Double`)
 	- Total amount remaining after a discount is applied
-- **preselectedCard** (`com.corvuspay.sdk.enums.CardType`)
-	- Enum value defining the card type which the user will be using for checkout
 - **cardholder** (`com.corvuspay.sdk.models.Cardholder`)
 	- Object containing optional cardholder data
 - **bestBefore** (`Long`)
