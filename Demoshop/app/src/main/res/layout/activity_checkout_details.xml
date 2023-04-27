@@ -241,6 +241,36 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/tv_isSdk"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_isSdk_title"
+                        style="@style/TableColumn1"
+                        android:text="isSdk" />
+
+                    <TextView
+                        android:id="@+id/tv_isSdk_value"
+                        style="@style/TableColumn2"
+                        tools:text="Object->String" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tv_version"
+                    style="@style/TableRow">
+
+                    <TextView
+                        android:id="@+id/tv_version_title"
+                        style="@style/TableColumn1"
+                        android:text="version" />
+
+                    <TextView
+                        android:id="@+id/tv_version_value"
+                        style="@style/TableColumn2"
+                        tools:text="Object->String" />
+                </TableRow>
+
+                <TableRow
                     android:id="@+id/tv_param_signature"
                     style="@style/TableRow"
                     android:background="@color/colorWhite">

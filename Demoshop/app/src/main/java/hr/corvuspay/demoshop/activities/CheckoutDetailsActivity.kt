@@ -67,7 +67,7 @@ class CheckoutDetailsActivity : AppCompatActivity() {
             NO_INSTALMENTS -> {
                 isInstallmentParamsVisible(false)
                 isInstallmentMapsVisible(false)
-                checkoutObject = createCheckoutObject().noInstallments().addCardProfiles().addSignature()
+                checkoutObject = createCheckoutObject().noInstallments().addSignature()
                 setUICheckoutData(checkoutObject)
             }
             FIXED_INSTALMENTS -> {
@@ -247,6 +247,8 @@ class CheckoutDetailsActivity : AppCompatActivity() {
         tv_param_installmentParams_value.text = showInstallments()
         tv_param_installmentsMap_value.text = showInstallments()
         tv_param_signature_value.text = checkout.signature
+        tv_isSdk_value.text = checkout.isSdk.toString()
+        tv_version_value.text = checkout.version
         if (Constants.USE_CARD_PROFILES != null){
             tv_useCardProfiles_value.text = Constants.USE_CARD_PROFILES.toString()
             tv_userCardProfilesId_value.text = Constants.USER_CARD_PROFILES_ID
