@@ -67,7 +67,7 @@ class CheckoutDetailsActivity : AppCompatActivity() {
             NO_INSTALMENTS -> {
                 isInstallmentParamsVisible(false)
                 isInstallmentMapsVisible(false)
-                checkoutObject = createCheckoutObject().noInstallments().addSignature()
+                checkoutObject = createCheckoutObject().noInstallments().addCardProfiles().addSignature()
                 setUICheckoutData(checkoutObject)
             }
             FIXED_INSTALMENTS -> {
