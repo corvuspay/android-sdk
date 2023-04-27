@@ -141,9 +141,11 @@ class CheckoutDetailsActivity : AppCompatActivity() {
 
     private fun createCheckoutObject(): Checkout =
         Checkout(
-            Constants.STORE_ID,
-            CheckoutData.getRandomOrderId(),
-            Constants.LANGUAGE,
+            storeId = Constants.STORE_ID,
+            orderId = CheckoutData.getRandomOrderId(),
+            language = Constants.LANGUAGE,
+            isSdk = true,
+            version = "1.3",
             cart = CartSingleton.instance.getContents(),
             currency = Constants.CURRENCY,
             amount = CartSingleton.instance.getSubtotal(),
@@ -159,14 +161,12 @@ class CheckoutDetailsActivity : AppCompatActivity() {
         )
 
     private fun Checkout.noInstallments(): Checkout = this.copy(
-        bestBefore = Helper.getFutureTimestamp(),
-        preselectedCard = CardType.Visa,
+        bestBefore = null,
         cardholder = CheckoutData.getCardholderDetails()
     )
 
     private fun Checkout.addFixedInstalments(): Checkout = this.copy(
         bestBefore = Helper.getFutureTimestamp(),
-        preselectedCard = CardType.Visa,
         cardholder = CheckoutData.getCardholderDetails()
     ).apply {
         return copy(installmentParams = fixedInstallmentParams)
@@ -174,7 +174,6 @@ class CheckoutDetailsActivity : AppCompatActivity() {
 
     private fun Checkout.addInstalments(): Checkout = this.copy(
         bestBefore = Helper.getFutureTimestamp(),
-        preselectedCard = CardType.Visa,
         cardholder = CheckoutData.getCardholderDetails()
     ).apply {
         return copy(installmentParams = installments)
@@ -182,7 +181,6 @@ class CheckoutDetailsActivity : AppCompatActivity() {
 
     private fun Checkout.addDynamicInstalments(): Checkout = this.copy(
         bestBefore = Helper.getFutureTimestamp(),
-        preselectedCard = CardType.Visa,
         cardholder = CheckoutData.getCardholderDetails()
     ).apply {
         return copy(installmentParams = dynamicInstallments)
@@ -190,7 +188,6 @@ class CheckoutDetailsActivity : AppCompatActivity() {
 
     private fun Checkout.addInstalmentsMap(): Checkout = this.copy(
         bestBefore = Helper.getFutureTimestamp(),
-        preselectedCard = CardType.Visa,
         cardholder = CheckoutData.getCardholderDetails()
     ).apply {
         return copy(installmentsMap = currentInstallmentsMap)

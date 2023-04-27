@@ -51,5 +51,5 @@ dependencies {
     //    Gson
     implementation 'com.google.code.gson:gson:2.8.6'
     //    CorvusPay SDK
-    implementation 'com.corvuspay:sdk-android:1.11'
+    implementation 'com.corvuspay:sdk-android:1.12'
 }
