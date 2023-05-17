@@ -83,8 +83,7 @@ The Checkout object (`com.corvuspay.sdk.models.Checkout`) is used to define tran
 #### Required:
 - **storeId** (`Int`)
 	- Store ID provided by Corvus
-- **orderId
-- ** (`String`)
+- **orderId** (`String`)
 	- Unique order identifier
 - **language** (`com.corvuspay.sdk.enums.Language`)
 	- Enum value defining the language preference for the checkout process
