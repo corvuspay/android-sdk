@@ -1,6 +1,6 @@
 &nbsp;
 <p align="center">
-<img src="https://www.corvuspay.com/wp-content/uploads/2019/10/CorvusPay-all-color@2x.png" alt="CorvusPay logo" /> 
+<img src="https://cdn.corvuspay.com/images/logo/CorvusPay-logo-horizontal-en@2x.png" alt="CorvusPay logo" /> 
 </p>
 
 # **Content**
