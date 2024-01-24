@@ -64,15 +64,16 @@ Once the checkout process is finished, a response will be forwarded to the appli
 
 #### Example
 ```kotlin
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-	if (requestCode == CheckoutCodes.REQUEST_CHECKOUT) {
-		when (resultCode) {
-			CheckoutCodes.RESULT_CODE_CHECKOUT_SUCCESS -> ...
-			CheckoutCodes.RESULT_CODE_CHECKOUT_FAILURE -> ...
-			CheckoutCodes.RESULT_CODE_CHECKOUT_ABORTED -> ...
-		}
-	}
-	super.onActivityResult(requestCode, resultCode, data)
+registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+
+    when (result.resultCode) {
+
+            CheckoutCodes.RESULT_CODE_CHECKOUT_SUCCESS -> ...
+            CheckoutCodes.RESULT_CODE_CHECKOUT_FAILURE -> ...
+            CheckoutCodes.RESULT_CODE_CHECKOUT_ABORTED -> ...
+
+    }
+
 }
 ```
 
