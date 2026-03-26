@@ -19,6 +19,19 @@
 			- [Payment All Dynamic](#payment-all-dynamic)
 			- [Payment All](#payment-all)
 			- [Number Of Installments](#number-of-installments)
+	- [CorvusFrameView (Embedded Checkout)](#corvusframeview-embedded-checkout)
+		- [When to use CorvusFrameView](#when-to-use-corvusframeview)
+		- [Adding CorvusFrameView](#adding-corvusframeview)
+		- [Configuration](#configuration-1)
+		- [Start the payment form](#start-the-payment-form)
+		- [Payment flow](#payment-flow)
+		- [Important](#important)
+		- [finishPayment](#finishpayment)
+		- [Result handling](#result-handling)
+		- [CardPaymentResult](#cardpaymentresult)
+		- [Saved card (Card Storage)](#saved-card-card-storage)
+		- [Callbacks](#callbacks)
+- [FAQ](#faq)
  - [FAQ](#faq)
    
 # Installation
@@ -321,6 +334,140 @@ In order to use the option, the following function of the `InstallmentParams` cl
 val installmentParams = 
 	InstallmentsParams.createUsingNumberOfInstallmentsWith(numberOfInstallments = 2)
 ```
+
+&nbsp;
+## CorvusFrameView (Embedded Checkout)
+
+CorvusFrameView is an embedded, WebView-based payment form that allows card payments directly inside your application without redirecting to the CorvusPay Wallet app or WebView checkout screen.
+
+This integration is an alternative to the standard SDK checkout flow and can be used when a fully embedded payment experience is required.
+
+&nbsp;
+### When to use CorvusFrameView
+
+Use this integration if you want:
+- card input directly inside your app
+- full control over UI/UX
+- embedded payment flow without app switching
+
+**Note:** Existing SDK checkout flow (Wallet / WebView) remains unchanged.
+
+### Adding CorvusFrameView
+
+#### XML
+
+```xml
+<com.corvuspay.sdk.views.CorvusFrameView
+    android:id="@+id/corvusFrameView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+```
+
+### Configuration
+
+```kotlin
+val config = CorvusFrameConfiguration(
+    publicKey = "PK_test_...",
+    style = CorvusFrameStyle(
+        backgroundColor = "#ffffff",
+        fontFamily = "Arial",
+        fontSize = 15,
+        fontColor = "#000000"
+    ),
+    option = CorvusFrameOption(
+        showCvv = true,
+        hideCorvusPayLogo = false,
+        locale = "en"
+    ),
+    sessionToken = null // or provide sessionToken for saved card flow
+)
+```
+
+### Start the payment form
+
+```kotlin
+const val environmentSdkTest = "test"
+const val environmentSdkProduction = "production"
+```
+
+```kotlin
+corvusFrameView.listener = this
+corvusFrameView.load(config, "test")
+```
+This will load the embedded payment form inside your application.
+
+### Payment flow
+- Call load(config, environmentSdk)
+- User enters card details (card number, CVV, expiry date)
+- Wait for onCardReady(true) (card data is valid)
+- Call your backend initPayment API to obtain paymentId
+- Call finishPayment(paymentId)
+- Handle onCardPaymentResult(result)
+- Send result to backend checkPaymentResponse
+
+### Important
+The SDK does NOT perform backend calls.
+
+- initPayment must be implemented on the merchant backend
+- SDK only uses the provided paymentId to continue the payment flow
+
+Backend integration details:
+https://github.com/corvuspay/corvus-frame-integration-doc?tab=readme-ov-file#backend-integration
+
+### finishPayment
+```kotlin
+corvusFrameView.finishPayment(paymentId)
+```
+Triggers the payment process inside the embedded frame.
+
+### Result handling
+```kotlin
+override fun onCardPaymentResult(result: CardPaymentResult) {
+    if (result.status.lowercase() == "ok") {
+        // success
+    } else {
+        // error
+    }
+}
+```
+
+### CardPaymentResult
+```kotlin
+data class CardPaymentResult(
+    val paymentId: String,
+    val status: String,
+    val errorCode: String,
+    val displayMessage: String,
+    val signature: String,
+    val approvalCode: String
+)
+```
+
+### Saved card (Card Storage)
+If sessionToken is provided in configuration, SDK will use saved card flow.
+
+```kotlin
+sessionToken = "session_token_value"
+```
+
+- sessionToken == null → new card entry
+- sessionToken != null → saved card verification flow
+The sessionToken must be obtained from your backend.
+
+Backend integration details:
+https://github.com/corvuspay/corvus-frame-integration-doc?tab=readme-ov-file#backend-integration
+
+### Callbacks
+Available callbacks:
+
+- onReady()
+- onCardReady(Boolean)
+- onShowError(String)
+- onClearError()
+- onError(String)
+- onShowModal(Int, Int) (3DS)
+- onHideModal(Int, Int)
+- onCardPaymentResult(CardPaymentResult)
 
 &nbsp;
 # FAQ
