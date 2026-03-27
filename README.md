@@ -372,12 +372,15 @@ val config = CorvusFrameConfiguration(
         backgroundColor = "#ffffff",
         fontFamily = "Arial",
         fontSize = 15,
-        fontColor = "#000000"
+        fontColor = "#000000",
+        borderColor = "#cccccc"
     ),
     option = CorvusFrameOption(
         showCvv = true,
         hideCorvusPayLogo = false,
-        locale = "en"
+        locale = "en",
+        layout = "default",      
+        showLabels = true        
     ),
     sessionToken = null // or provide sessionToken for saved card flow
 )
