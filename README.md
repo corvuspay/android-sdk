@@ -23,13 +23,15 @@
 		- [When to use CorvusFrameView](#when-to-use-corvusframeview)
 		- [Adding CorvusFrameView](#adding-corvusframeview)
 		- [Configuration](#configuration-1)
+			- [CorvusFrameStyle](#corvusframestyle)
+			- [CorvusFrameOption](#corvusframeoption)
 		- [Start the payment form](#start-the-payment-form)
 		- [Payment flow](#payment-flow)
 		- [Important](#important)
-		- [finishPayment](#finishpayment)
+		- [Finish the payment](#finish-the-payment)
 		- [Result handling](#result-handling)
 		- [CardPaymentResult](#cardpaymentresult)
-		- [Saved card (Card Storage)](#saved-card-card-storage)
+		- [Saved card](#saved-card)
 		- [Callbacks](#callbacks)
 - [FAQ](#faq)
  - [FAQ](#faq)
@@ -338,19 +340,19 @@ val installmentParams =
 &nbsp;
 ## CorvusFrameView (Embedded Checkout)
 
-CorvusFrameView is an embedded, WebView-based payment form that allows card payments directly inside your application without redirecting to the CorvusPay Wallet app or WebView checkout screen.
+`CorvusFrameView` is an embedded, WebView-based payment form that allows card payments directly inside your application without redirecting to the CorvusPay Wallet app or a separate WebView checkout screen.
 
-This integration is an alternative to the standard SDK checkout flow and can be used when a fully embedded payment experience is required.
+This integration is an alternative to the standard SDK checkout flow and is intended for applications that require an embedded payment experience.
 
-&nbsp;
 ### When to use CorvusFrameView
 
-Use this integration if you want:
-- card input directly inside your app
-- full control over UI/UX
-- embedded payment flow without app switching
+Use `CorvusFrameView` if you want:
 
-**Note:** Existing SDK checkout flow (Wallet / WebView) remains unchanged.
+* card input directly inside your application;
+* control over the payment form layout and styling;
+* an embedded payment flow without switching to another application.
+
+The existing SDK checkout flow using the CorvusPay Wallet or WebView remains unchanged.
 
 ### Adding CorvusFrameView
 
@@ -373,68 +375,111 @@ val config = CorvusFrameConfiguration(
         fontFamily = "Arial",
         fontSize = 15,
         fontColor = "#000000",
-        borderColor = "#cccccc"
+        borderColor = "#cccccc",
+        inputFontColor = "#000000"
     ),
     option = CorvusFrameOption(
-        showCvv = true,
+        cvvOnly = true,
         hideCorvusPayLogo = false,
         locale = "en",
-        layout = "default",      
-        showLabels = true        
+        layout = "default",
+        showLabels = true
     ),
-    sessionToken = null // or provide sessionToken for saved card flow
+    sessionToken = null
 )
 ```
 
+#### `CorvusFrameStyle`
+
+| Property          | Description                                    |
+| ----------------- | ---------------------------------------------- |
+| `backgroundColor` | Background color of the payment form.          |
+| `fontFamily`      | Font family used by the form.                  |
+| `fontSize`        | Font size used by the form.                    |
+| `fontColor`       | Color of the form labels and text.             |
+| `inputFontColor`  | Color of the text entered into input fields.   |
+| `borderColor`     | Border color of the form fields and container. |
+
+Colors should be provided as hexadecimal values, for example `"#ffffff"`.
+
+#### `CorvusFrameOption`
+
+| Property            | Description                                                                                              |
+| ------------------- | -------------------------------------------------------------------------------------------------------- |
+| `cvvOnly`           | Controls the saved-card form. When enabled, only the CVV field is displayed for saved-card verification. |
+| `hideCorvusPayLogo` | Hides the CorvusPay logo when set to `true`.                                                             |
+| `locale`            | Language used for labels and validation messages. Supported values include `"en"`, `"hr"` and `"sr"`.    |
+| `layout`            | Form layout. Supported values are `"default"` and `"stacked"`.                                           |
+| `showLabels`        | Controls whether labels are displayed. This option applies to the `"stacked"` layout.                    |
+
 ### Start the payment form
+
+```kotlin
+corvusFrameView.listener = this
+corvusFrameView.load(config, "test")
+```
+
+The available SDK environments are:
 
 ```kotlin
 const val environmentSdkTest = "test"
 const val environmentSdkProduction = "production"
 ```
 
-```kotlin
-corvusFrameView.listener = this
-corvusFrameView.load(config, "test")
-```
-This will load the embedded payment form inside your application.
+`load()` starts loading the embedded payment form. The payment form is loaded asynchronously.
 
 ### Payment flow
-- Call load(config, environmentSdk)
-- User enters card details (card number, CVV, expiry date)
-- Wait for onCardReady(true) (card data is valid)
-- Call your backend initPayment API to obtain paymentId
-- Call finishPayment(paymentId)
-- Handle onCardPaymentResult(result)
-- Send result to backend checkPaymentResponse
+
+1. Call `load(config, environmentSdk)`. Wait for the frame initialization callbacks. `onReady()` is called when the frame is initialized.
+2. The user enters the required card data.
+3. Wait for `onCardReady(true)`.
+4. Call the merchant backend to initialize the payment and obtain a `paymentId`.
+5. Call `finishPayment(paymentId)`.
+6. Handle the result in `onCardPaymentResult(result)`.
+7. Send the result to the merchant backend for verification.
+
+`onCardReady(true)` means that all required card data entered by the user is valid and that the form is ready for payment.
 
 ### Important
-The SDK does NOT perform backend calls.
 
-- initPayment must be implemented on the merchant backend
-- SDK only uses the provided paymentId to continue the payment flow
+The SDK does not perform merchant backend calls.
 
-Backend integration details:
-https://github.com/corvuspay/corvus-frame-integration-doc?tab=readme-ov-file#backend-integration
+The merchant backend is responsible for:
 
-### finishPayment
+* initializing the payment;
+* generating and validating signatures;
+* obtaining the `paymentId`;
+* obtaining a `sessionToken` for saved-card payments;
+* verifying the payment result.
+
+The SDK only uses the `paymentId` provided by the merchant backend to continue the payment flow.
+
+For backend integration details, see the [CorvusFrame integration documentation](https://github.com/corvuspay/corvus-frame-integration-doc).
+
+### Finish the payment
+
 ```kotlin
 corvusFrameView.finishPayment(paymentId)
 ```
-Triggers the payment process inside the embedded frame.
+
+This starts the payment process inside the embedded frame.
+
+`finishPayment()` should be called only after the merchant backend has successfully initialized the payment and returned a valid `paymentId`.
 
 ### Result handling
+
 ```kotlin
 override fun onCardPaymentResult(result: CardPaymentResult) {
-    if (result.status.lowercase() == "ok") {
-        // success
+    if (result.status.equals("ok", ignoreCase = true)) {
+        // Payment successful
     } else {
-        // error
+        // Payment failed
     }
 }
 ```
 
-### CardPaymentResult
+### `CardPaymentResult`
+
 ```kotlin
 data class CardPaymentResult(
     val paymentId: String,
@@ -446,31 +491,180 @@ data class CardPaymentResult(
 )
 ```
 
-### Saved card (Card Storage)
-If sessionToken is provided in configuration, SDK will use saved card flow.
+The merchant backend must validate the result signature before treating the payment as successful.
+
+### Saved card
+
+If `sessionToken` is provided, the SDK uses the saved-card verification flow.
 
 ```kotlin
 sessionToken = "session_token_value"
 ```
 
-- sessionToken == null → new card entry
-- sessionToken != null → saved card verification flow
-The sessionToken must be obtained from your backend.
+* `sessionToken == null`: standard new-card flow.
+* `sessionToken != null`: saved-card verification flow.
 
-Backend integration details:
-https://github.com/corvuspay/corvus-frame-integration-doc?tab=readme-ov-file#backend-integration
+The `sessionToken` must be obtained from the merchant backend.
+
+During saved-card initialization:
+
+* `onCardInfo()` is delivered during the initial loading of the saved-card form;
+* `onCardReady(true)` is delivered after all required card data, including CVV when required, has been entered correctly.
 
 ### Callbacks
-Available callbacks:
 
-- onReady()
-- onCardReady(Boolean)
-- onShowError(String)
-- onClearError()
-- onError(String)
-- onShowModal(Int, Int) (3DS)
-- onHideModal(Int, Int)
-- onCardPaymentResult(CardPaymentResult)
+All callbacks are delivered asynchronously on the UI thread.
+
+Callback events do not have a guaranteed fixed order. Applications must not rely on a specific order for validation, installment, discount, error, modal or payment callbacks.
+
+#### `onReady()`
+
+Called when the CorvusFrame is initialized.
+
+```kotlin
+override fun onReady() {
+    // The frame has been initialized
+}
+```
+
+#### `onCardReady(isReady: Boolean)`
+
+Called when the card validation state changes.
+
+`onCardReady(true)` means that all required card data entered by the user is valid and that the form is ready for payment.
+
+```kotlin
+override fun onCardReady(isReady: Boolean) {
+    if (isReady) {
+        // Enable the payment button
+    } else {
+        // Keep the payment button disabled
+    }
+}
+```
+
+#### `onShowError(errorMsg: String)`
+
+Called when a validation error should be displayed.
+
+```kotlin
+override fun onShowError(errorMsg: String) {
+    // Display the validation error
+}
+```
+
+#### `onClearError()`
+
+Called when a previously reported validation error is cleared.
+
+```kotlin
+override fun onClearError() {
+    // Clear the displayed validation error
+}
+```
+
+#### `onError(errorMsg: String)`
+
+Called when a general CorvusFrame error occurs.
+
+```kotlin
+override fun onError(errorMsg: String) {
+    // Handle the error
+}
+```
+
+#### `onShowModal(heightToBeSet: Int, widthToBeSet: Int)`
+
+Called when the 3DS authentication modal is displayed.
+
+```kotlin
+override fun onShowModal(
+    heightToBeSet: Int,
+    widthToBeSet: Int
+) {
+    // Handle the 3DS modal
+}
+```
+
+#### `onHideModal(heightToBeSet: Int, widthToBeSet: Int)`
+
+Called when the 3DS authentication modal is closed.
+
+```kotlin
+override fun onHideModal(
+    heightToBeSet: Int,
+    widthToBeSet: Int
+) {
+    // Handle the end of 3DS authentication
+}
+```
+
+#### `onInstallmentsCalculated(config: String)`
+
+Called when installment information is calculated for the entered card.
+
+The `config` parameter is a JSON string containing installment information, such as:
+
+```json
+{
+  "minInstallments": 2,
+  "maxInstallments": 12,
+  "minAmount": 1000
+}
+```
+
+`minAmount` is expressed in cents.
+
+```kotlin
+override fun onInstallmentsCalculated(config: String) {
+    // Parse and use the installment configuration
+}
+```
+
+#### `onCanDiscountedAmountBeUsed(canUse: Boolean)`
+
+Called when CorvusFrame determines whether a discounted amount can be used for the current card.
+
+* `true`: the discounted amount can be used;
+* `false`: the discounted amount cannot be used.
+
+```kotlin
+override fun onCanDiscountedAmountBeUsed(canUse: Boolean) {
+    if (canUse) {
+        // Apply the discounted amount
+    }
+}
+```
+
+#### `onCardInfo(cardInfo: String)`
+
+Called:
+
+* during the initial loading of the payment form;
+* when the detected card brand changes;
+* during saved-card initialization.
+
+The `cardInfo` parameter contains information about the detected card brand.
+
+```kotlin
+override fun onCardInfo(cardInfo: String) {
+    // Handle the detected card brand
+}
+```
+
+#### `onCardPaymentResult(result: CardPaymentResult)`
+
+Called after `finishPayment(paymentId)` completes.
+
+```kotlin
+override fun onCardPaymentResult(result: CardPaymentResult) {
+    if (result.status.equals("ok", ignoreCase = true)) {
+        // Payment successful
+    } else {
+        // Payment failed
+    }
+}
+```
 
 &nbsp;
 # FAQ
