@@ -376,14 +376,21 @@ val config = CorvusFrameConfiguration(
         fontSize = 15,
         fontColor = "#000000",
         borderColor = "#cccccc",
-        inputFontColor = "#000000"
+        inputFontColor = "#000000",
+
+		cvvCancelBtnBackgroundColor = "#ffffff",
+        cvvCancelBtnFontColor = "#000000",
+        cvvSuccessBtnBackgroundColor = "#000000",
+        cvvSuccessBtnFontColor = "#ffffff",
+        cvvInputBackgroundColor = "#ffffff"
     ),
     option = CorvusFrameOption(
         cvvOnly = true,
         hideCorvusPayLogo = false,
         locale = "en",
         layout = "default",
-        showLabels = true
+        showLabels = true,
+		show3DSInFullScreen = true
     ),
     sessionToken = null
 )
@@ -399,7 +406,13 @@ val config = CorvusFrameConfiguration(
 | `fontColor`       | Color of the form labels and text.             |
 | `inputFontColor`  | Color of the text entered into input fields.   |
 | `borderColor`     | Border color of the form fields and container. |
+| `cvvCancelBtnBackgroundColor`     | Background color of the CVV cancel button. |
+| `cvvCancelBtnFontColor`     | Text color of the CVV cancel button. |
+| `cvvSuccessBtnBackgroundColor`   | Background color of the CVV confirmation button. |
+| `cvvSuccessBtnFontColor`    | Text color of the CVV confirmation button. |
+| `cvvInputBackgroundColor`     | Background color of the CVV input field. |
 
+The CVV button style properties are used when the CVV-only flow is not active.
 Colors should be provided as hexadecimal values, for example `"#ffffff"`.
 
 #### `CorvusFrameOption`
@@ -411,6 +424,9 @@ Colors should be provided as hexadecimal values, for example `"#ffffff"`.
 | `locale`            | Language used for labels and validation messages. Supported values include `"en"`, `"hr"` and `"sr"`.    |
 | `layout`            | Form layout. Supported values are `"default"` and `"stacked"`.                                           |
 | `showLabels`        | Controls whether labels are displayed. This option applies to the `"stacked"` layout.                    |
+| `show3DSInFullScreen`        | Controls whether the 3DS page is displayed in full-screen mode.                    |
+
+
 
 ### Start the payment form
 
