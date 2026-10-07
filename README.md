@@ -377,8 +377,7 @@ val config = CorvusFrameConfiguration(
         fontColor = "#000000",
         borderColor = "#cccccc",
         inputFontColor = "#000000",
-
-		cvvCancelBtnBackgroundColor = "#ffffff",
+        cvvCancelBtnBackgroundColor = "#ffffff",
         cvvCancelBtnFontColor = "#000000",
         cvvSuccessBtnBackgroundColor = "#000000",
         cvvSuccessBtnFontColor = "#ffffff",
@@ -390,7 +389,7 @@ val config = CorvusFrameConfiguration(
         locale = "en",
         layout = "default",
         showLabels = true,
-		show3DSInFullScreen = true
+        show3DSInFullScreen = true
     ),
     sessionToken = null
 )
